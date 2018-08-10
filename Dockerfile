@@ -1,5 +1,8 @@
 FROM debian:9 as builder
 
+ARG BRANCH=0.4.0
+ENV BRANCH=${BRANCH}
+
 # install build dependencies
 # checkout the latest tag
 # build and install
@@ -15,7 +18,7 @@ RUN apt-get update && \
       cmake \
       libboost-all-dev \
       librocksdb-dev && \
-    git clone https://github.com/monkeytips/monkeytips.git /opt/monkeytips && \
+    git clone --branch $BRANCH https://github.com/monkeytips/monkeytips.git /opt/monkeytips && \
     cd /opt/monkeytips && \
     mkdir build && \
     cd build && \
