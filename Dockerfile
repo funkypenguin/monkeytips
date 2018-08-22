@@ -1,6 +1,6 @@
 FROM debian:9 as builder
 
-ARG BRANCH=0.5.0
+ARG BRANCH=0.5.1
 ENV BRANCH=${BRANCH}
 
 # install build dependencies
