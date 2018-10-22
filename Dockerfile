@@ -54,7 +54,7 @@ RUN mkdir -p /usr/local/bin && mkdir -p /tmp/checkpoints
 
 WORKDIR /usr/local/bin
 COPY --from=builder /opt/monkeytips/build/src/monkeytipsd .
-COPY --from=builder /opt/monkeytips/build/src/walletd .
+COPY --from=builder /opt/monkeytips/build/src/monkey-service .
 COPY --from=builder /opt/monkeytips/build/src/zedwallet .
 COPY --from=builder /opt/monkeytips/build/src/poolwallet .
 COPY --from=builder /opt/monkeytips/build/src/miner .
