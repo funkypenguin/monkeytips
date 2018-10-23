@@ -56,7 +56,6 @@ WORKDIR /usr/local/bin
 COPY --from=builder /opt/monkeytips/build/src/monkeytipsd .
 COPY --from=builder /opt/monkeytips/build/src/monkey-service .
 COPY --from=builder /opt/monkeytips/build/src/zedwallet .
-COPY --from=builder /opt/monkeytips/build/src/poolwallet .
 COPY --from=builder /opt/monkeytips/build/src/miner .
 RUN mkdir -p /var/lib/monkeytips
 WORKDIR /var/lib/monkeytips
