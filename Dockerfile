@@ -1,6 +1,6 @@
 FROM debian:9 as builder
 
-ARG BRANCH=v0.6.0
+ARG BRANCH=v0.6.1
 ENV BRANCH=${BRANCH}
 
 # BUILD_DATE and VCS_REF are immaterial, since this is a 2-stage build, but our build
