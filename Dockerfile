@@ -52,12 +52,19 @@ RUN apt-get update && \
 
 RUN mkdir -p /usr/local/bin && mkdir -p /tmp/checkpoints 
 
-WORKDIR /usr/local/bin
-COPY --from=builder /opt/monkeytips/build/src/monkeytipsd .
-COPY --from=builder /opt/monkeytips/build/src/monkey-service .
-COPY --from=builder /opt/monkeytips/build/src/zedwallet .
-COPY --from=builder /opt/monkeytips/build/src/miner .
-RUN mkdir -p /var/lib/monkeytips
-WORKDIR /var/lib/monkeytips
-ENTRYPOINT ["/usr/local/bin/monkeytipsd"]
-CMD ["--no-console","--data-dir","/var/lib/monkeytips","--rpc-bind-ip","0.0.0.0","--rpc-bind-port","13002","--p2p-bind-port","13001"]
+RUN git clone https://github.com/turtlecoin/turtlecoind-ha.git /usr/local/turtlecoin-ha && mkdir /tmp/checkpoints/
+
+COPY --from=builder /opt/monkeytips/build/src/* /usr/local/turtlecoin-ha/
+
+COPY service.js /usr/local/turtlecoin-ha/
+
+RUN mkdir -p /var/lib/monkeytips && npm install \
+	nonce \
+	shelljs \
+	node-pty \
+	sha256 \
+	socket.io \
+	turtlecoin-rpc
+
+WORKDIR /usr/local/turtlecoin-ha
+CMD [ "pm2-runtime", "start", "service.js" ]
